@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import useAxiosInstance from '../../Hooks/useAxiosInstance';
 
 const Register = () => {
     let [role, setRole] = useState('');
+    let axiosInstance = useAxiosInstance();
 
     let handleRegister = (e) => {
         e.preventDefault();
@@ -28,7 +30,7 @@ const Register = () => {
                                 <label className="block mb-2 text-sm font-medium text-gray-900">
                                     Full Name
                                 </label>
-                                <input placeholder="John Doe" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" name='fullName' id='fullName' type="text" required/>
+                                <input placeholder="John Doe" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" name='fullName' id='fullName' type="text" required />
                             </div>
 
                             <div>
@@ -46,21 +48,21 @@ const Register = () => {
                                 <label className="block mb-2 text-sm font-medium text-gray-900">
                                     Phone Number
                                 </label>
-                                <input placeholder="+8801879792236" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" name="phoneNum" id="phoneNum" type='tel' required/>
+                                <input placeholder="+8801879792236" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" name="phoneNum" id="phoneNum" type='tel' required />
                             </div>
 
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">
                                     Email
                                 </label>
-                                <input placeholder="johndoe@gmail.com" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" name="email" id="email" type='email' required/>
+                                <input placeholder="johndoe@gmail.com" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" name="email" id="email" type='email' required />
                             </div>
 
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">
                                     Password
                                 </label>
-                                <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" name="password" id="password" type="password" required/>
+                                <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" name="password" id="password" type="password" required />
                             </div>
 
                             <button className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
