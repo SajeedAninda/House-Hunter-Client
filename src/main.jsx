@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Register from './Pages/Register/Register.jsx';
 import { Toaster } from 'react-hot-toast';
+import Login from './Pages/Login/Login.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/login",
+    element: <Login></Login>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

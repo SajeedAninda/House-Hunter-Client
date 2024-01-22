@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useAxiosInstance from '../../Hooks/useAxiosInstance';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     let [role, setRole] = useState('');
@@ -85,6 +86,10 @@ const Register = () => {
                             <button className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
                                 Register
                             </button>
+
+                            <p className="text-lg font-bold leading-tight tracking-tight text-gray-900">
+                                Already Have any Account? <Link className='text-blue-700 hover:underline' to={'/login'}>Login</Link>
+                            </p>
 
                         </div>
                     </div>
