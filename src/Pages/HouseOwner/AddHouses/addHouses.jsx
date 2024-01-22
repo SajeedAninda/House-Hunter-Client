@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import useAxiosInstance from '../../../Hooks/useAxiosInstance';
 import axios from 'axios';
+import useCurrentUser from '../../../Hooks/useCurrentUser';
+import { useNavigate } from 'react-router-dom';
 
 const AddHouses = () => {
     let axiosInstance = useAxiosInstance();
     let [selectedImage, setSelectedImage] = useState(null);
+    let { userData } = useCurrentUser();
+    let navigate = useNavigate();
 
     let handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -42,6 +46,7 @@ const AddHouses = () => {
         let rent = e.target.rent.value;
         let phoneNumber = e.target.phoneNumber.value;
         let description = e.target.description.value;
+        let ownerEmail = userData?.email;
 
         if (phoneNumber.length !== 14 || !phoneNumber.startsWith("+880")) {
             return toast.error("Please Enter a Valid Bangladeshi Number");
@@ -52,10 +57,17 @@ const AddHouses = () => {
         try {
             let res = await axios.post("https://api.imgbb.com/1/upload?key=cbd289d81c381c05afbab416f87e8637", data);
             let imageUrl = res.data.data.display_url;
-            let houseDetails = { houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description, imageUrl };
-            toast.dismiss(loadingToast);
+            let houseDetails = { houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description, imageUrl, ownerEmail };
 
-            console.log(houseDetails)
+            axiosInstance.post("/houses", houseDetails)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.insertedId) {
+                        toast.dismiss(loadingToast);
+                        toast.success("Added House Successfully");
+                        navigate("/houseOwner");
+                    }
+                })
         } catch (error) {
             console.error("Error uploading image:", error);
             toast.dismiss(loadingToast);
