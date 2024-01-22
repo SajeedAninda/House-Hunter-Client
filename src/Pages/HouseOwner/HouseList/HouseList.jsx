@@ -22,6 +22,33 @@ const HouseList = () => {
         }
     })
 
+    let handleDeleteHouse = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Once Deleted, you cannot revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#336CDD',
+            cancelButtonColor: '#ed4747',
+            confirmButtonText: 'Yes, Delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosInstance.delete(`/deleteHouse/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            console.log(res.data);
+                            toast.success("House Deleted Succesfully")
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error :", error);
+                        toast.error('Error', 'Failed to delete House');
+                    });
+            }
+        });
+    }
+
     return (
         <div className='mx-auto w-[90%] py-8'>
             <div className='space-y-2'>
