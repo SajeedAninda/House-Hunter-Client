@@ -1,8 +1,10 @@
+import Register from "./Pages/Register/Register";
+
 function App() {
 
   return (
     <>
-      Hello
+      <Register></Register>
     </>
   )
 }
