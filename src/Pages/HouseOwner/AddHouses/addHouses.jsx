@@ -41,9 +41,9 @@ const AddHouses = () => {
         let location = e.target.location.value;
         let totalBedrooms = e.target.totalBedrooms.value;
         let totalBathrooms = e.target.bathrooms.value;
-        let roomSize = e.target.roomSize.value;
+        let roomSize = parseFloat(e.target.roomSize.value);
         let availableDate = e.target.availableDate.value;
-        let rent = e.target.rent.value;
+        let rent = parseFloat(e.target.rent.value);
         let phoneNumber = e.target.phoneNumber.value;
         let description = e.target.description.value;
         let ownerEmail = userData?.email;

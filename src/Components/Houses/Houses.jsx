@@ -15,17 +15,17 @@ const Houses = () => {
     let [maxRoomSize, setMaxRoomSize] = useState("5000");
     let [searchText, setSearchText] = useState("");
 
-    console.log(rentMin, rentMax, city, bedRooms, bathRoom, minRoomSize, maxRoomSize, searchText)
-
     let axiosInstance = useAxiosInstance();
 
     const { data: house, isLoading: isHouseLoading, refetch } = useQuery({
-        queryKey: ['house'],
+        queryKey: ['house', rentMin, rentMax, city, bedRooms, bathRoom, minRoomSize, maxRoomSize, searchText],
         queryFn: async () => {
-            const response = await axiosInstance.get(`/allHouses`);
+            const response = await axiosInstance.get(`/allHouses?rentMin=${rentMin}&rentMax=${rentMax}&city=${city}&bedRooms=${bedRooms}&bathRoom=${bathRoom}&minRoomSize=${minRoomSize}&maxRoomSize=${maxRoomSize}&searchText=${searchText}`);
             return response.data;
         }
     })
+
+    console.log(bedRooms, bathRoom, city)
 
 
     return (
@@ -80,7 +80,7 @@ const Houses = () => {
                                     Bedrooms:
                                 </label>
                                 <br />
-                                <select onChange={(e) => { setBedRooms(parseFloat(e.target.value)) }} className='w-full border-2 border-blue-700 rounded-xl py-2 px-4 font-semibold text-md' name="bedrooms" id="bedrooms">
+                                <select onChange={(e) => { setBedRooms(e.target.value) }} className='w-full border-2 border-blue-700 rounded-xl py-2 px-4 font-semibold text-md' name="bedrooms" id="bedrooms">
                                     <option className='font-semibold' value="allRooms" selected>All Bedroom</option>
                                     <option className='font-semibold' value="1">1</option>
                                     <option className='font-semibold' value="2">2</option>
@@ -102,7 +102,7 @@ const Houses = () => {
                                     Bathrooms:
                                 </label>
                                 <br />
-                                <select onChange={(e) => { setBathrooms(parseFloat(e.target.value)) }} className='w-full border-2 border-blue-700 rounded-xl py-2 px-4 font-semibold text-md' name="bathrooms" id="bathrooms">
+                                <select onChange={(e) => { setBathrooms(e.target.value) }} className='w-full border-2 border-blue-700 rounded-xl py-2 px-4 font-semibold text-md' name="bathrooms" id="bathrooms">
                                     <option className='font-semibold' value="allBathRooms" selected>All Bathrooms</option>
                                     <option className='font-semibold' value="1">1</option>
                                     <option className='font-semibold' value="2">2</option>

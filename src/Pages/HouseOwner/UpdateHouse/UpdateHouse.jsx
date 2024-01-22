@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const UpdateHouse = () => {
     let houseData = useLoaderData();
-    let {_id, houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description, imageUrl, ownerEmail } = houseData;
+    let { _id, houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description, imageUrl, ownerEmail } = houseData;
 
     let axiosInstance = useAxiosInstance();
     let navigate = useNavigate();
@@ -17,9 +17,9 @@ const UpdateHouse = () => {
         let location = e.target.location.value;
         let totalBedrooms = e.target.totalBedrooms.value;
         let totalBathrooms = e.target.bathrooms.value;
-        let roomSize = e.target.roomSize.value;
+        let roomSize = parseFloat(e.target.roomSize.value);
         let availableDate = e.target.availableDate.value;
-        let rent = e.target.rent.value;
+        let rent = parseFloat(e.target.rent.value);
         let phoneNumber = e.target.phoneNumber.value;
         let description = e.target.description.value;
 
@@ -29,7 +29,7 @@ const UpdateHouse = () => {
 
         let loadingToast = toast.loading('Updating House...');
 
-        let houseDetails = { houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description};
+        let houseDetails = { houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description };
 
         axiosInstance.patch(`/updateHouse/${_id}`, houseDetails)
             .then(res => {
