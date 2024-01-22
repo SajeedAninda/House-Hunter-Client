@@ -1,9 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "./Hooks/useAuth";
+import useCurrentUser from "./Hooks/useCurrentUser";
 
 function App() {
   let navigate = useNavigate();
   let { logout } = useAuth();
+
+  let { userData } = useCurrentUser();
+  console.log(userData);
 
   const handleLogout = async () => {
     try {
