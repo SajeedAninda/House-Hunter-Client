@@ -15,6 +15,8 @@ import { Toaster } from 'react-hot-toast';
 import Login from './Pages/Login/Login.jsx';
 import AuthProvider from './AuthenticationProvider/AuthProvider.jsx';
 import ViewPage from './Pages/ViewPage/ViewPage.jsx';
+import HouseOwnerDashboard from './Pages/HouseOwner/HouseOwnerDashboard/HouseOwnerDashboard.jsx';
+import HouseOwnerPanel from './Pages/HouseOwner/HouseOwnerPanel/HouseOwnerPanel.jsx';
 
 const queryClient = new QueryClient()
 
@@ -27,6 +29,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <ViewPage></ViewPage>
+      }
+    ]
+  },
+  {
+    path: "/houseOwner",
+    element: <HouseOwnerDashboard></HouseOwnerDashboard>,
+    children: [
+      {
+        path: "/houseOwner",
+        element: <HouseOwnerPanel></HouseOwnerPanel>
       }
     ]
   },
