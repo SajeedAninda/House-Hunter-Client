@@ -1,10 +1,9 @@
 import React from 'react';
+import Houses from '../../Components/Houses/Houses';
 
 const Homepage = () => {
     return (
-        <div>
-            Guest Homepage
-        </div>
+        <Houses></Houses>
     );
 };
 
