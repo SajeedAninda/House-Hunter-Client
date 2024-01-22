@@ -112,7 +112,7 @@ const HouseList = () => {
                                         {house?.rent} ৳
                                     </div>
 
-                                    <Link to={`updatehouse/${house?._id}`} className='text-[#0e2b45] font-bold text-lg col-span-1 text-center flex justify-center'>
+                                    <Link to={`updateHouse/${house?._id}`} className='text-[#0e2b45] font-bold text-lg col-span-1 text-center flex justify-center'>
                                         <MdEditSquare className='text-3xl cursor-pointer font-bold text-[#0e2b45]' />
                                     </Link>
                                     

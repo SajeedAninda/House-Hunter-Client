@@ -19,6 +19,7 @@ import HouseOwnerDashboard from './Pages/HouseOwner/HouseOwnerDashboard/HouseOwn
 import HouseOwnerPanel from './Pages/HouseOwner/HouseOwnerPanel/HouseOwnerPanel.jsx';
 import AddHouses from './Pages/HouseOwner/AddHouses/addHouses.jsx';
 import HouseList from './Pages/HouseOwner/HouseList/HouseList.jsx';
+import UpdateHouse from './Pages/HouseOwner/UpdateHouse/UpdateHouse.jsx';
 
 const queryClient = new QueryClient()
 
@@ -49,6 +50,15 @@ const router = createBrowserRouter([
       {
         path: "houseList",
         element: <HouseList></HouseList>
+      },
+      {
+        path: "houseList",
+        element: <HouseList></HouseList>
+      },
+      {
+        path: "houseList/updateHouse/:id",
+        loader: ({ params }) => fetch(`http://localhost:5000/houseDetails/${params.id}`),
+        element: <UpdateHouse></UpdateHouse>
       },
     ]
   },
