@@ -1,7 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "./Hooks/useAuth";
 import useCurrentUser from "./Hooks/useCurrentUser";
 import ViewPage from "./Pages/ViewPage/ViewPage";
+import Homepage from "./Pages/Guest/Homepage";
+import Navbar from "./Components/Navbar/Navbar";
 
 function App() {
   // let navigate = useNavigate();
@@ -32,8 +34,8 @@ function App() {
       >
         Logout
       </button> */}
-
-      <ViewPage></ViewPage>
+      <Navbar></Navbar>
+      <Outlet></Outlet>
     </>
   )
 }

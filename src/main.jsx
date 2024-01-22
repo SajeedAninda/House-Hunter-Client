@@ -20,6 +20,7 @@ import HouseOwnerPanel from './Pages/HouseOwner/HouseOwnerPanel/HouseOwnerPanel.
 import AddHouses from './Pages/HouseOwner/AddHouses/addHouses.jsx';
 import HouseList from './Pages/HouseOwner/HouseList/HouseList.jsx';
 import UpdateHouse from './Pages/HouseOwner/UpdateHouse/UpdateHouse.jsx';
+import Homepage from './Pages/Guest/Homepage.jsx';
 
 const queryClient = new QueryClient()
 
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <ViewPage></ViewPage>
+        element: <Homepage></Homepage>
       }
     ]
   },

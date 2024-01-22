@@ -5,14 +5,14 @@ import HouseOwnerDashboard from '../HouseOwner/HouseOwnerDashboard/HouseOwnerDas
 import Homepage from '../Guest/Homepage';
 
 const ViewPage = () => {
-    let { userData } = useCurrentUser();
-    console.log(userData?.role);
+    // let { userData } = useCurrentUser();
+    // console.log(userData?.role);
 
     return (
         <>
-            {!userData && <Homepage />}
+            {/* {!userData && <Homepage />}
             {userData?.role === "houseRenter" && <HouseRentorHomePage />}
-            {/* {userData?.role === "houseOwner" && <HouseOwnerDashboard />} */}
+            {userData?.role === "houseOwner" && <HouseOwnerDashboard />} */}
         </>
     );
 };
