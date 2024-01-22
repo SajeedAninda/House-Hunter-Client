@@ -17,6 +17,7 @@ import AuthProvider from './AuthenticationProvider/AuthProvider.jsx';
 import ViewPage from './Pages/ViewPage/ViewPage.jsx';
 import HouseOwnerDashboard from './Pages/HouseOwner/HouseOwnerDashboard/HouseOwnerDashboard.jsx';
 import HouseOwnerPanel from './Pages/HouseOwner/HouseOwnerPanel/HouseOwnerPanel.jsx';
+import AddHouses from './Pages/HouseOwner/AddHouses/addHouses.jsx';
 
 const queryClient = new QueryClient()
 
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
       {
         path: "/houseOwner",
         element: <HouseOwnerPanel></HouseOwnerPanel>
-      }
+      },
+      {
+        path: "addHouses",
+        element: <AddHouses></AddHouses>
+      },
     ]
   },
   {
