@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import useAxiosInstance from '../../../Hooks/useAxiosInstance';
+import axios from 'axios';
 
 const AddHouses = () => {
-    let handleAddHouses = (e) => {
+    let axiosInstance = useAxiosInstance();
+    let [selectedImage, setSelectedImage] = useState(null);
+
+    let handleImageChange = (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                setSelectedImage(file);
+            } else {
+                setSelectedImage(null);
+                toast.error("Please upload a valid image")
+            }
+        }
+    };
+
+    let data = new FormData();
+    data.append("image", selectedImage);
+
+
+    let handleAddHouses = async (e) => {
         e.preventDefault();
+
+        if (!selectedImage) {
+            toast.error("Please upload an image");
+            return;
+        }
 
         let houseName = e.target.houseName.value;
         let address = e.target.address.value;
@@ -20,9 +47,20 @@ const AddHouses = () => {
             return toast.error("Please Enter a Valid Bangladeshi Number");
         }
 
-        let houseDetails = { houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description };
+        let loadingToast = toast.loading('Adding House...');
 
-        console.log(houseDetails);
+        try {
+            let res = await axios.post("https://api.imgbb.com/1/upload?key=cbd289d81c381c05afbab416f87e8637", data);
+            let imageUrl = res.data.data.display_url;
+            let houseDetails = { houseName, address, location, totalBedrooms, totalBathrooms, roomSize, availableDate, rent, phoneNumber, description, imageUrl };
+            toast.dismiss(loadingToast);
+
+            console.log(houseDetails)
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            toast.dismiss(loadingToast);
+            toast.error("Error uploading image");
+        }
     }
 
     return (
@@ -131,7 +169,27 @@ const AddHouses = () => {
                             </div>
                         </div>
 
-                       
+                        {/* 6th row  */}
+                        <div className='mt-5 bg-transparent w-full m-auto rounded-xl'>
+                            <div className='px-5 py-3 relative rounded-lg'>
+                                <div className='flex flex-col w-max mx-auto text-center'>
+                                    <label>
+                                        <input
+                                            className='text-sm cursor-pointer w-36 hidden'
+                                            type='file'
+                                            name='image'
+                                            id='image'
+                                            accept='image/*'
+                                            hidden
+                                            onChange={handleImageChange}
+                                        />
+                                        <div className='bg-transparent border-2 border-white text-white text-2xl font-bold cursor-pointer py-2 px-7 hover:bg-[white] hover:border-blue-700 hover:text-blue-700 rounded-xl'>
+                                            {selectedImage ? selectedImage.name : "Upload Relevant House Picture"}
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* BUTTON  */}
                         <button className='w-full mt-4 rounded-lg bg-transparent py-2 text-2xl font-bold border-2 border-white text-white hover:bg-white hover:border-white hover:text-blue-700 transition ease-in-out delay-50'>
