@@ -2,32 +2,31 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import useAxiosInstance from '../Hooks/useAxiosInstance';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
-export const AuthContext = createContext();
+export let AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem('user');
+  let [user, setUser] = useState(() => {
+    let storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
   let axiosInstance = useAxiosInstance();
   console.log(user);
 
-  const login = async ({ email, password }) => {
+  let login = async ({ email, password }) => {
     let loadingToast = toast.loading('Logging In...');
 
     try {
-      const response = await axiosInstance.post('/userLogin', { email, password });
+      let response = await axiosInstance.post('/userLogin', { email, password });
 
       if (response.status >= 200 && response.status < 300) {
-        const token = response.data.token;
+        let token = response.data.token;
 
         Cookies.set('accessToken', token, { expires: 1, path: '/' });
 
-        const updatedUser = { email };
+        let updatedUser = { email };
         localStorage.setItem('user', JSON.stringify(updatedUser));
 
         setUser(updatedUser);
@@ -53,7 +52,42 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  let register = async (userDetails) => {
+    let loadingToast = toast.loading('Registering...');
+
+    try {
+      let response = await axiosInstance.post('/userRegister', userDetails);
+
+      if (response.status === 200) {
+        let { email } = userDetails;
+        localStorage.setItem('user', JSON.stringify({ email }));
+
+        Cookies.set('accessToken', response.data.token, { expires: 1, path: '/' });
+        setTimeout(() => {
+          toast.dismiss(loadingToast);
+          toast.success(response.data.message);
+        }, 0);
+        return true;
+      } else {
+        toast.dismiss(loadingToast);
+        toast.error('Registration failed. Please try again.');
+        return false;
+      }
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else if (error.request) {
+        toast.error('No response from the server');
+      } else {
+        toast.error('An unexpected error occurred');
+      }
+      return false;
+    }
+  };
+
+
+  let logout = () => {
     try {
       setUser(null);
       localStorage.removeItem('user');
@@ -76,7 +110,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

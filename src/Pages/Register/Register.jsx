@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import useAxiosInstance from '../../Hooks/useAxiosInstance';
 import toast from 'react-hot-toast';
-import Cookies from 'js-cookie';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 
 const Register = () => {
     let [role, setRole] = useState('');
-    let axiosInstance = useAxiosInstance();
+    let { register } = useAuth();
+    let navigate = useNavigate();
 
     let handleRegister = async (e) => {
         e.preventDefault();
@@ -16,7 +16,7 @@ const Register = () => {
         let password = e.target.password.value;
 
         let userDetails = { fullName, phone, email, password, role };
-        let loadingToast = toast.loading('Registering...');
+
 
         if (password.length < 6) {
             toast.dismiss(loadingToast);
@@ -24,24 +24,13 @@ const Register = () => {
         }
 
         try {
-            const response = await axiosInstance.post('/userRegister', userDetails);
-
-            if (response.status === 200) {
-                toast.dismiss(loadingToast);
-                toast.success(response.data.message);
-                Cookies.set('accessToken', response.data.token, { expires: 1, path: '/' });
+            const success = await register(userDetails);
+            if (success) {
+                navigate('/');
+                console.log(user);
             }
         } catch (error) {
-            if (error.response) {
-                toast.dismiss(loadingToast);
-                toast.error(error.response.data.message);
-            } else if (error.request) {
-                toast.dismiss(loadingToast);
-                toast.error('No response from the server');
-            } else {
-                toast.dismiss(loadingToast);
-                toast.error('An unexpected error occurred');
-            }
+            console.log(error);
         }
     }
 
