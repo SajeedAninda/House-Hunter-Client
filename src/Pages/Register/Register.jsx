@@ -8,7 +8,7 @@ const Register = () => {
     let [role, setRole] = useState('');
     let axiosInstance = useAxiosInstance();
 
-    let handleRegister = async(e) => {
+    let handleRegister = async (e) => {
         e.preventDefault();
         let fullName = e.target.fullName.value;
         let phone = e.target.phoneNum.value;
@@ -16,20 +16,30 @@ const Register = () => {
         let password = e.target.password.value;
 
         let userDetails = { fullName, phone, email, password, role };
+        let loadingToast = toast.loading('Registering...');
+
+        if (password.length < 6) {
+            toast.dismiss(loadingToast);
+            return toast.error("Password Length should be more than 6 characters")
+        }
 
         try {
             const response = await axiosInstance.post('/userRegister', userDetails);
 
             if (response.status === 200) {
+                toast.dismiss(loadingToast);
                 toast.success(response.data.message);
                 Cookies.set('accessToken', response.data.token, { expires: 1, path: '/' });
             }
         } catch (error) {
             if (error.response) {
+                toast.dismiss(loadingToast);
                 toast.error(error.response.data.message);
             } else if (error.request) {
+                toast.dismiss(loadingToast);
                 toast.error('No response from the server');
             } else {
+                toast.dismiss(loadingToast);
                 toast.error('An unexpected error occurred');
             }
         }

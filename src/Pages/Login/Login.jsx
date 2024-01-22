@@ -12,20 +12,25 @@ const Login = () => {
         e.preventDefault();
         let email = e.target.email.value;
         let password = e.target.password.value;
+        let loadingToast = toast.loading('Logging In...');
 
         try {
             const response = await axiosInstance.post('/userLogin', { email, password });
 
             if (response.status >= 200 && response.status < 300) {
+                toast.dismiss(loadingToast);
                 toast.success(response.data.message);
                 Cookies.set('accessToken', response.data.token, { expires: 1, path: '/' });
             }
         } catch (error) {
             if (error.response) {
+                toast.dismiss(loadingToast);
                 toast.error(error.response.data.message);
             } else if (error.request) {
+                toast.dismiss(loadingToast);
                 toast.error('No response from the server');
             } else {
+                toast.dismiss(loadingToast);
                 toast.error('An unexpected error occurred');
             }
         }
