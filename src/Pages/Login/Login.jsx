@@ -1,14 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAxiosInstance from '../../Hooks/useAxiosInstance';
+import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 const Login = () => {
-    let handleLogin = (e) => {
+    let axiosInstance = useAxiosInstance();
+    
+
+    let handleLogin = async (e) => {
         e.preventDefault();
         let email = e.target.email.value;
         let password = e.target.password.value;
 
-        let loginDetails = { email, password };
-        console.log(loginDetails)
+        try {
+            const response = await axiosInstance.post('/userLogin', { email, password });
+
+            if (response.status >= 200 && response.status < 300) {
+                toast.success(response.data.message);
+                Cookies.set('accessToken', response.data.token, { expires: 1, path: '/' });
+            }
+        } catch (error) {
+            if (error.response) {
+                toast.error(error.response.data.message);
+            } else if (error.request) {
+                toast.error('No response from the server');
+            } else {
+                toast.error('An unexpected error occurred');
+            }
+        }
     }
 
     return (
