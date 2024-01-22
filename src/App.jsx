@@ -1,15 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
-import Register from "./Pages/Register/Register";
-import Cookies from "js-cookie";
-import toast from "react-hot-toast";
+import useAuth from "./Hooks/useAuth";
 
 function App() {
   let navigate = useNavigate();
+  let { logout } = useAuth();
 
-  const handleLogout = () => {
-    Cookies.remove('accessToken');
-    toast.success('Logged out successfully');
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      const success = await logout();
+      if (success) {
+        navigate('/login');
+        console.log(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

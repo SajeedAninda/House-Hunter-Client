@@ -1,12 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import useAxiosInstance from '../../Hooks/useAxiosInstance';
-import toast from 'react-hot-toast';
-import Cookies from 'js-cookie';
 import useAuth from '../../Hooks/useAuth';
 
 const Login = () => {
-    const { login } = useAuth();
+    const { login, user } = useAuth();
     let navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -15,9 +12,9 @@ const Login = () => {
         const password = e.target.password.value;
         try {
             const success = await login({ email, password });
-
             if (success) {
                 navigate('/');
+                console.log(user);
             }
         } catch (error) {
             console.log(error);
