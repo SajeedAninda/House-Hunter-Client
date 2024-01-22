@@ -1,40 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAxiosInstance from '../../Hooks/useAxiosInstance';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
+import useAuth from '../../Hooks/useAuth';
 
 const Login = () => {
-    let axiosInstance = useAxiosInstance();
-    
+    const { login } = useAuth();
+    let navigate = useNavigate();
 
-    let handleLogin = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        let email = e.target.email.value;
-        let password = e.target.password.value;
-        let loadingToast = toast.loading('Logging In...');
-
+        const email = e.target.email.value;
+        const password = e.target.password.value;
         try {
-            const response = await axiosInstance.post('/userLogin', { email, password });
+            const success = await login({ email, password });
 
-            if (response.status >= 200 && response.status < 300) {
-                toast.dismiss(loadingToast);
-                toast.success(response.data.message);
-                Cookies.set('accessToken', response.data.token, { expires: 1, path: '/' });
+            if (success) {
+                navigate('/');
             }
         } catch (error) {
-            if (error.response) {
-                toast.dismiss(loadingToast);
-                toast.error(error.response.data.message);
-            } else if (error.request) {
-                toast.dismiss(loadingToast);
-                toast.error('No response from the server');
-            } else {
-                toast.dismiss(loadingToast);
-                toast.error('An unexpected error occurred');
-            }
+            console.log(error);
         }
-    }
+    };
 
     return (
         <div className='mx-auto w-[90%] py-8'>
@@ -65,7 +53,7 @@ const Login = () => {
                             </button>
 
                             <p className="text-lg font-bold leading-tight tracking-tight text-gray-900">
-                                Dont Have Account? <Link className='text-blue-700 hover:underline' to={'/'}>Register</Link>
+                                Dont Have Account? <Link className='text-blue-700 hover:underline' to={'/register'}>Register</Link>
                             </p>
 
                         </div>

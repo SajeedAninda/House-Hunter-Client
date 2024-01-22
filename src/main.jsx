@@ -9,17 +9,16 @@ import {
 import Register from './Pages/Register/Register.jsx';
 import { Toaster } from 'react-hot-toast';
 import Login from './Pages/Login/Login.jsx';
+import AuthProvider from './AuthenticationProvider/AuthProvider.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
-    children: [
-      {
-        path: "/",
-        element: <Register></Register>
-      }
-    ]
+    element: <App></App>
+  },
+  {
+    path: "/register",
+    element: <Register></Register>
   },
   {
     path: "/login",
@@ -30,6 +29,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Toaster />
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
