@@ -59,7 +59,7 @@ const HouseOwnerDashboard = () => {
                                     isPending ? "pending" : isActive ? "border-2 border-[#fcf4e9] p-2  font-bold text-base md:text-lg text-[#fcf4e9] rounded-md hover:bg-white hover:text-blue-700" : "text-base md:text-lg p-2 text-[#fcf4e9] hover:bg-white hover:text-blue-700 rounded-md"
                                 }
                             >
-                                Add Houses
+                                Add New Houses
                             </NavLink>
 
                             <NavLink
@@ -108,7 +108,7 @@ const HouseOwnerDashboard = () => {
                             isPending ? "pending" : isActive ? "border-2 border-[#fcf4e9] p-2  font-bold text-base md:text-lg text-[#fcf4e9] rounded-md hover:bg-white hover:text-blue-700" : "text-base md:text-lg p-2 text-[#fcf4e9] hover:bg-white hover:text-blue-700 rounded-md"
                         }
                     >
-                        Add Houses
+                        Add New Houses
                     </NavLink>
 
                     <NavLink

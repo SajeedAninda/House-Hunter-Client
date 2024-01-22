@@ -18,6 +18,7 @@ import ViewPage from './Pages/ViewPage/ViewPage.jsx';
 import HouseOwnerDashboard from './Pages/HouseOwner/HouseOwnerDashboard/HouseOwnerDashboard.jsx';
 import HouseOwnerPanel from './Pages/HouseOwner/HouseOwnerPanel/HouseOwnerPanel.jsx';
 import AddHouses from './Pages/HouseOwner/AddHouses/addHouses.jsx';
+import HouseList from './Pages/HouseOwner/HouseList/HouseList.jsx';
 
 const queryClient = new QueryClient()
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "addHouses",
         element: <AddHouses></AddHouses>
+      },
+      {
+        path: "houseList",
+        element: <HouseList></HouseList>
       },
     ]
   },
