@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import useAxiosInstance from '../../Hooks/useAxiosInstance';
+import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 const Register = () => {
     let [role, setRole] = useState('');
     let axiosInstance = useAxiosInstance();
 
-    let handleRegister = (e) => {
+    let handleRegister = async(e) => {
         e.preventDefault();
         let fullName = e.target.fullName.value;
         let phone = e.target.phoneNum.value;
@@ -14,7 +16,22 @@ const Register = () => {
 
         let userDetails = { fullName, phone, email, password, role };
 
-        console.log(userDetails);
+        try {
+            const response = await axiosInstance.post('/userRegister', userDetails);
+
+            if (response.status === 200) {
+                toast.success(response.data.message);
+                Cookies.set('accessToken', response.data.token, { expires: 1, path: '/' });
+            }
+        } catch (error) {
+            if (error.response) {
+                toast.error(error.response.data.message);
+            } else if (error.request) {
+                toast.error('No response from the server');
+            } else {
+                toast.error('An unexpected error occurred');
+            }
+        }
     }
 
     return (
