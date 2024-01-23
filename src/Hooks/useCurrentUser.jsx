@@ -5,7 +5,7 @@ import useAuth from './useAuth';
 
 const useCurrentUser = () => {
     let { user } = useAuth();
-    let currentUserEmail = user.email;
+    let currentUserEmail = user?.email;
 
     let axiosInstance = useAxiosInstance();
     const { data: userData, isLoading: isUserLoading } = useQuery({

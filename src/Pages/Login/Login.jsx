@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import useCurrentUser from '../../Hooks/useCurrentUser';
 
 const Login = () => {
     const { login, user } = useAuth();
     let navigate = useNavigate();
+    let { userData, isUserLoading } = useCurrentUser();
+    console.log(userData)
 
     const handleLogin = async (e) => {
         e.preventDefault();

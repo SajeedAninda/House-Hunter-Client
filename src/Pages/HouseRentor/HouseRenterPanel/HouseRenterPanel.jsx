@@ -60,7 +60,7 @@ const HouseRenterPanel = () => {
 
                 <div className='flex-1'>
                     <div className='Cards'>
-                        <h2 className='font-bold text-4xl text-blue-700'>Booked Houses: </h2>
+                        <h2 className='font-bold text-4xl text-blue-700'>Booked Houses: {bookingData?.length}</h2>
                         {
                             bookingData ?
                                 (

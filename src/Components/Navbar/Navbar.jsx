@@ -1,11 +1,27 @@
 import React from 'react';
 import logo from "../../assets/Logo/logo.png"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useCurrentUser from '../../Hooks/useCurrentUser';
+import useAuth from '../../Hooks/useAuth';
 
 const Navbar = () => {
     let { userData } = useCurrentUser();
     console.log(userData);
+
+    let navigate = useNavigate();
+    let { logout } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            const success = await logout();
+            if (success) {
+                navigate('/login');
+                console.log(user);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div className='bg-gradient-to-r from-blue-700 to-blue-400 text-white flex justify-between items-center p-4'>
@@ -25,7 +41,7 @@ const Navbar = () => {
                                     House Renter Dashboard
                                 </Link>
 
-                                <button className='bg-white px-4 py-3 font-bold text-blue-500 border-2 border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg'>
+                                <button onClick={handleLogout} className='bg-white px-4 py-3 font-bold text-blue-500 border-2 border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg'>
                                     Logout
                                 </button>
                             </div>
@@ -34,7 +50,7 @@ const Navbar = () => {
                                 <Link className='bg-white px-4 py-3 font-bold text-blue-500 border-2 border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg' to={"/houseOwner"}>
                                     House Owner Dashboard
                                 </Link>
-                                <button className='bg-white px-4 py-3 font-bold text-blue-500 border-2 border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg'>
+                                <button onClick={handleLogout} className='bg-white px-4 py-3 font-bold text-blue-500 border-2 border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg'>
                                     Logout
                                 </button>
                             </div>
