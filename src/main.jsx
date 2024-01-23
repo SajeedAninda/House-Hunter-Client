@@ -41,8 +41,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/houseDetails/:id",
-        loader: ({ params }) => fetch(`http://localhost:5000/houseDetails/${params.id}`),
-        element: <HouseDetails></HouseDetails>
+        loader: ({ params }) => fetch(`https://house-hunter-server-murex.vercel.app/houseDetails/${params.id}`),
+        element: <RenterRoute><HouseDetails></HouseDetails></RenterRoute>
       },
     ]
   },
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
       },
       {
         path: "houseList/updateHouse/:id",
-        loader: ({ params }) => fetch(`http://localhost:5000/houseDetails/${params.id}`),
+        loader: ({ params }) => fetch(`https://house-hunter-server-murex.vercel.app/houseDetails/${params.id}`),
         element: <OwnerRoute><UpdateHouse></UpdateHouse></OwnerRoute>
       },
     ]
