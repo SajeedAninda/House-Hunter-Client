@@ -21,6 +21,7 @@ import AddHouses from './Pages/HouseOwner/AddHouses/addHouses.jsx';
 import HouseList from './Pages/HouseOwner/HouseList/HouseList.jsx';
 import UpdateHouse from './Pages/HouseOwner/UpdateHouse/UpdateHouse.jsx';
 import Homepage from './Pages/Guest/Homepage.jsx';
+import HouseDetails from './Components/HouseDetails/HouseDetails.jsx';
 
 const queryClient = new QueryClient()
 
@@ -33,7 +34,12 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Homepage></Homepage>
-      }
+      },
+      {
+        path: "/houseDetails/:id",
+        loader: ({ params }) => fetch(`http://localhost:5000/houseDetails/${params.id}`),
+        element: <HouseDetails></HouseDetails>
+      },
     ]
   },
   {
