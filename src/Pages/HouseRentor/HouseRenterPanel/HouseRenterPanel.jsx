@@ -6,6 +6,8 @@ import useAxiosInstance from '../../../Hooks/useAxiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { FaDeleteLeft } from "react-icons/fa6";
+import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 
 const HouseRenterPanel = () => {
@@ -13,13 +15,41 @@ const HouseRenterPanel = () => {
     let currentUserEmail = userData?.email;
     let axiosInstance = useAxiosInstance();
 
-    const { data: bookingData, isLoading: isBookingLoading } = useQuery({
+    const { data: bookingData, isLoading: isBookingLoading, refetch } = useQuery({
         queryKey: ['bookingData', currentUserEmail],
         queryFn: async () => {
             const response = await axiosInstance.get(`/userHouseBookings?email=${currentUserEmail}`);
             return response.data;
         }
     });
+
+    let handleDeleteHouse = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Once Deleted, you cannot revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#336CDD',
+            cancelButtonColor: '#ed4747',
+            confirmButtonText: 'Yes, Delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosInstance.delete(`/deleteBookedHouse/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            console.log(res.data);
+                            toast.success("House Deleted Succesfully")
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error :", error);
+                        toast.error('Error', 'Failed to delete House');
+                    });
+            }
+        });
+        console.log(id)
+    }
 
     return (
         <div className='w-[90%] mx-auto py-8'>
@@ -57,9 +87,9 @@ const HouseRenterPanel = () => {
                                                     <h5 className="mb-2 text-xl font-bold tracking-tight text-white flex items-center">{item?.rent}৳ / Month </h5>
 
 
-                                                    <button className="mt-auto inline-flex items-center relative px-3 py-1 text-blue-700 text-lg font-bold overflow-hidden bg-white rounded-md  transition-all duration-400 ease-in-out shadow-md hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-blue-700 before:to-blue-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-md hover:before:left-0 gap-2">
+                                                    <button onClick={() => handleDeleteHouse(item?._id)} className="mt-auto inline-flex items-center relative px-3 py-1 text-blue-700 text-lg font-bold overflow-hidden bg-white rounded-md  transition-all duration-400 ease-in-out shadow-md hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-blue-700 before:to-blue-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-md hover:before:left-0 gap-2">
                                                         Delete
-                                                        <FaDeleteLeft className='text-2xl'/>
+                                                        <FaDeleteLeft className='text-2xl' />
                                                     </button>
                                                 </div>
                                             </div>
