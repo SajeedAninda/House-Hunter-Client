@@ -7,7 +7,6 @@ const Login = () => {
     const { login, user } = useAuth();
     let navigate = useNavigate();
     let { userData, isUserLoading } = useCurrentUser();
-    console.log(userData)
 
     const handleLogin = async (e) => {
         e.preventDefault();
