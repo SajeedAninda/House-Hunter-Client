@@ -1,6 +1,6 @@
 import React from 'react';
 import useCurrentUser from '../../Hooks/useCurrentUser';
-import HouseRentorHomePage from '../HouseRentor/HouseRentorHomepage/HouseRentorHomePage';
+import HouseRentorHomePage from '../HouseRentor/HouseRentorHomepage/HouseRenterDashboard';
 import HouseOwnerDashboard from '../HouseOwner/HouseOwnerDashboard/HouseOwnerDashboard';
 import Homepage from '../Guest/Homepage';
 

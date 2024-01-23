@@ -22,6 +22,8 @@ import HouseList from './Pages/HouseOwner/HouseList/HouseList.jsx';
 import UpdateHouse from './Pages/HouseOwner/UpdateHouse/UpdateHouse.jsx';
 import Homepage from './Pages/Guest/Homepage.jsx';
 import HouseDetails from './Components/HouseDetails/HouseDetails.jsx';
+import HouseRenterDashboard from './Pages/HouseRentor/HouseRentorHomepage/HouseRenterDashboard.jsx';
+import HouseRenterPanel from './Pages/HouseRentor/HouseRenterPanel/HouseRenterPanel.jsx';
 
 const queryClient = new QueryClient()
 
@@ -66,6 +68,16 @@ const router = createBrowserRouter([
         path: "houseList/updateHouse/:id",
         loader: ({ params }) => fetch(`http://localhost:5000/houseDetails/${params.id}`),
         element: <UpdateHouse></UpdateHouse>
+      },
+    ]
+  },
+  {
+    path: "/houseRenter",
+    element: <HouseRenterDashboard></HouseRenterDashboard>,
+    children: [
+      {
+        path: "/houseRenter",
+        element: <HouseRenterPanel></HouseRenterPanel>
       },
     ]
   },
