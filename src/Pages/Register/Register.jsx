@@ -26,7 +26,7 @@ const Register = () => {
         try {
             const success = await register(userDetails);
             if (success) {
-                navigate('/');
+                navigate('/login');
                 console.log(user);
             }
         } catch (error) {
