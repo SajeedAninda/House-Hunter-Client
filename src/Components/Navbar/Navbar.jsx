@@ -7,9 +7,11 @@ const Navbar = () => {
         <div className='bg-gradient-to-r from-blue-700 to-blue-400 text-white flex justify-between items-center p-4'>
             <div className='w-[95%] mx-auto'>
                 <div className='flex justify-between items-center'>
-                    <div className='flex items-center gap-4'>
+                    <div >
+                        <Link to={"/"} className='flex items-center gap-4'>
                         <img src={logo} className='w-[70px]' alt="" />
                         <h1 className='text-3xl text-white font-bold'>House Hunter</h1>
+                        </Link>
                     </div>
 
                     <div className='flex gap-2'>
