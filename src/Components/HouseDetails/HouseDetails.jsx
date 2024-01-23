@@ -52,7 +52,7 @@ const HouseDetails = () => {
         let bookerEmail = e.target.email.value;
         let bookerPhoneNum = e.target.phnNum.value;
         let houseId = _id;
-        let bookingDetails = { bookerName, bookerEmail, bookerPhoneNum, houseId };
+        let bookingDetails = { bookerName, bookerEmail, bookerPhoneNum, houseId, houseName, location, totalBedrooms, totalBathrooms, rent, imageUrl };
 
         let loadingToast = toast.loading('Booking House...');
 
