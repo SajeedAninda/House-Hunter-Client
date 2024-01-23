@@ -24,6 +24,8 @@ import Homepage from './Pages/Guest/Homepage.jsx';
 import HouseDetails from './Components/HouseDetails/HouseDetails.jsx';
 import HouseRenterDashboard from './Pages/HouseRentor/HouseRentorHomepage/HouseRenterDashboard.jsx';
 import HouseRenterPanel from './Pages/HouseRentor/HouseRenterPanel/HouseRenterPanel.jsx';
+import OwnerRoute from './Pages/PrivateRoute/OwnerRoute.jsx';
+import RenterRoute from './Pages/PrivateRoute/RenterRoute.jsx';
 
 const queryClient = new QueryClient()
 
@@ -46,38 +48,34 @@ const router = createBrowserRouter([
   },
   {
     path: "/houseOwner",
-    element: <HouseOwnerDashboard></HouseOwnerDashboard>,
+    element: <OwnerRoute><HouseOwnerDashboard></HouseOwnerDashboard></OwnerRoute>,
     children: [
       {
         path: "/houseOwner",
-        element: <HouseOwnerPanel></HouseOwnerPanel>
+        element: <OwnerRoute><HouseOwnerPanel></HouseOwnerPanel></OwnerRoute>
       },
       {
         path: "addHouses",
-        element: <AddHouses></AddHouses>
+        element: <OwnerRoute><AddHouses></AddHouses></OwnerRoute>
       },
       {
         path: "houseList",
-        element: <HouseList></HouseList>
-      },
-      {
-        path: "houseList",
-        element: <HouseList></HouseList>
+        element: <OwnerRoute><HouseList></HouseList></OwnerRoute>
       },
       {
         path: "houseList/updateHouse/:id",
         loader: ({ params }) => fetch(`http://localhost:5000/houseDetails/${params.id}`),
-        element: <UpdateHouse></UpdateHouse>
+        element: <OwnerRoute><UpdateHouse></UpdateHouse></OwnerRoute>
       },
     ]
   },
   {
     path: "/houseRenter",
-    element: <HouseRenterDashboard></HouseRenterDashboard>,
+    element: <RenterRoute><HouseRenterDashboard></HouseRenterDashboard></RenterRoute>,
     children: [
       {
         path: "/houseRenter",
-        element: <HouseRenterPanel></HouseRenterPanel>
+        element: <RenterRoute><HouseRenterPanel></HouseRenterPanel></RenterRoute>
       },
     ]
   },

@@ -7,6 +7,8 @@ export let AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
+  let [loading, setLoading] = useState(true);
+
   let [user, setUser] = useState(() => {
     let storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
@@ -16,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   console.log(user);
 
   let login = async ({ email, password }) => {
+    setLoading(true);
     let loadingToast = toast.loading('Logging In...');
 
     try {
@@ -53,6 +56,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   let register = async (userDetails) => {
+    setLoading(true);
     let loadingToast = toast.loading('Registering...');
 
     try {
@@ -102,7 +106,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     let unSubscribe = () => {
-      setUser(user)
+      setUser(user);
+      setLoading(false);
     };
     return () => {
       unSubscribe();
